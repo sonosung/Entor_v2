@@ -1,0 +1,11 @@
+sentence,audio_file_path
+Could you help me find my glasses,./data/writing__dictation/question_0.wav
+I'm going to the grocery store later,./data/writing__dictation/question_1.wav
+The weather is really nice today,./data/writing__dictation/question_2.wav
+Please turn off the lights when you leave,./data/writing__dictation/question_3.wav
+What time is our appointment tomorrow,./data/writing__dictation/question_4.wav
+Don't forget to bring your homework,./data/writing__dictation/question_5.wav
+How much does this cost,./data/writing__dictation/question_6.wav
+Make sure to water the plants,./data/writing__dictation/question_7.wav
+I need to charge my phone,./data/writing__dictation/question_8.wav
+Are we out of milk again,./data/writing__dictation/question_9.wav
