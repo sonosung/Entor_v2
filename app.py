@@ -32,7 +32,7 @@ roleplays = {
     'immigration': {'display_name':'입국 심사하기', 'emoji': '🏦', 'difficulty': '⭐️'},
     'bank': {'display_name':'은행에서 대출하기', 'emoji': '🏦', 'difficulty': '⭐️⭐️⭐️'},
     'school': {'display_name': '새학기 교실', 'emoji': '🏫', 'difficulty': '⭐️⭐️'},
-    'cafe': {'display_name': '커피 주문하기', 'emoji': '☕️', 'difficulty': '⭐️'},
+    'caffe': {'display_name': '커피 주문하기', 'emoji': '☕️', 'difficulty': '⭐️'},
     'massage': {'display_name': '마사지 예약하기', 'emoji': '📞', 'difficulty': '⭐️⭐️'},
 }
 
@@ -50,6 +50,7 @@ def go_to_home():
 def roleplay_start(roleplay):
     st.session_state["roleplay"] = roleplay
     st.session_state["roleplay_info"] = roleplays[roleplay]
+    # st.session_state.goal_list = get_goals(roleplay)  # Fetch goals for the selected roleplay
 
     go_to_chat()
 
@@ -58,8 +59,10 @@ def go_to_main():
     st.session_state["roleplay"] = None
     st.session_state["roleplay_info"] = None
     st.session_state.messages = [] ## 채팅 초기화
-    st.session_state.goal_list = []  # goal 초기화
+    # st.session_state.goal_list = []  # goal 초기화
     get_goals.clear()  # Clear the cache for get_goals
+    # st.session_state.goal_list = get_goals(roleplay)
+    
 
 
 # Create a function to display each roleplay in the grid
@@ -86,7 +89,7 @@ elif  st.session_state["curr_page"] == "chat":
     roleplay = st.session_state["roleplay"]
     roleplay_info = roleplays[roleplay]
     st.title(roleplay_info['display_name'])
-    st.button("메인으로", on_click=go_to_home)
+    st.button("메인으로", on_click=go_to_main)
 
 
     ###############################################
@@ -155,6 +158,9 @@ elif  st.session_state["curr_page"] == "chat":
     # Conversation
     speech_file_path = "./data/speech_file__rolplay/tmp_speak.mp3"
     if "goal_list" not in st.session_state:
+        st.session_state.goal_list = get_goals(roleplay)
+    #한 세션에서 다음으로 넘어갈 때, 새로 시작한 롤플레이에서 Goal 가져오기.
+    elif "goal_list" in st.session_state != roleplay_start(roleplay):
         st.session_state.goal_list = get_goals(roleplay)
 
     goal_text = "\n".join([f"- {goal}" for goal in st.session_state.goal_list])

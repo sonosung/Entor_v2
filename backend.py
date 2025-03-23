@@ -15,9 +15,9 @@ client = OpenAI()
 # model = ChatOpenAI(model="gpt-4-1106-preview")
 hamburger_model = ChatOpenAI(model="ft:gpt-3.5-turbo-1106:personal:entor:Av39Nmt5")
 immigration_model = ChatOpenAI(model="ft:gpt-4o-mini-2024-07-18:personal::BAwupOHZ")
-bank_model = ChatOpenAI(model="ft:gpt-4o-mini-2024-07-18:personal::BAwupOHZ")
+bank_model = ChatOpenAI(model="ft:gpt-3.5-turbo-1106:personal::BE9dbKnN")
 school_model = ChatOpenAI(model="ft:gpt-4o-mini-2024-07-18:personal::BAwupOHZ")
-cafe_model = ChatOpenAI(model="ft:gpt-4o-mini-2024-07-18:personal::BAwupOHZ")
+caffe_model = ChatOpenAI(model="ft:gpt-4o-mini-2024-07-18:personal::BAwupOHZ")
 massage_model = ChatOpenAI(model="ft:gpt-4o-mini-2024-07-18:personal::BAwupOHZ")
 app = FastAPI()
 
@@ -63,8 +63,8 @@ def detect_goal_completion(messages, roleplay):
         model = bank_model
     elif roleplay == "school":
         model = school_model
-    elif roleplay == "cafe":
-        model = cafe_model
+    elif roleplay == "caffe":
+        model = caffe_model
     elif roleplay == "massage":
         model = massage_model
     else:
@@ -112,6 +112,7 @@ def chat(messages):
 roleplay_to_system_prompt_map = {
         "hamburger": """\
 - 너는 햄버거 가게의 직원이다.
+- 한번에 한가지의 질문만 한다.
 - 아래의 단계로 질문을 한다.
 1. 주문 할 메뉴 묻기
 2. 더 주문 할 것이 없는지 묻기
@@ -123,6 +124,7 @@ roleplay_to_system_prompt_map = {
 """,
         "immigration": """\
 - 너는 출입국 사무소의 직원이다.
+- 한번에 한가지의 질문만 한다.
 - 아래의 단계로 질문을 한다.
 1. 이름 묻기
 2. 여권 제시 요구하기
@@ -134,6 +136,7 @@ roleplay_to_system_prompt_map = {
 """,
         "bank": """\
 - 너는 은행의 대출상담 직원이다.
+- 한번에 한가지의 질문만 한다.
 - 아래의 단계로 질문을 한다.
 1. 이름 묻기
 2. 대출의 목적 묻기
@@ -145,6 +148,7 @@ roleplay_to_system_prompt_map = {
 """,
         "school": """\
 - 너는 새학기 첫날 학교의 학생이다.
+- 한번에 한가지의 질문만 한다.
 - 아래의 단계로 질문을 한다.
 1. 이름 묻기
 2. 어느 반에 배정되었는지 묻기
@@ -154,8 +158,9 @@ roleplay_to_system_prompt_map = {
 - 너는 영어로 응답한다.\
 - 질문할 때 앞에 숫자를 붙이지 않는다.
 """,
-        "cafe": """\
+        "caffe": """\
 - 너는 카페의 직원이다.
+- 한번에 한가지의 질문만 한다.
 - 아래의 단계로 질문을 한다.
 1. 주문할 음료 묻기
 2. 사이즈를 묻기 (작은, 중간, 큰)
@@ -166,9 +171,9 @@ roleplay_to_system_prompt_map = {
 - 너는 영어로 응답한다.\
 - 질문할 때 앞에 숫자를 붙이지 않는다.
 """,
-
-"massage": """\
+        "massage": """\
 - 너는 마사지 예약을 받는 직원이다.
+- 한번에 한가지의 질문만 한다.
 - 아래의 단계로 질문을 한다.
 1. 이름 묻기
 2. 원하는 마사지 종류 묻기 (예: 스웨디시, 타이)
@@ -189,7 +194,7 @@ roleplay_to_goal_map = {
                     "대학 등록금을 위한 대출"],
         "school": ["반 이름 말하기",
                    "수학을 좋아한다고 말하기"],
-        "cafe": ["아메리카노 주문하기",
+        "caffe": ["아메리카노 주문하기",
                  "크기는 중간으로 주문하기"],                                       
         "massage": ["마사지 예약하기",
                     "카이로프랙틱 마사지를 원한다고 말하기"]
@@ -227,8 +232,8 @@ def post_chat_role_play(messages: Messages, roleplay: str):
     elif roleplay == "school":
         model = school_model
     
-    elif roleplay == "cafe":
-        model = cafe_model
+    elif roleplay == "caffe":
+        model = caffe_model
     
     elif roleplay   == "massage":
         model = massage_model
